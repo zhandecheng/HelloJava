@@ -57,7 +57,7 @@ public class ChessBoard extends Group {
 				this.getChildren().add(s);//添加,square
 				arrRow.add(s);//
 
-				// PAWNS  罗总是笨蛋
+				// PAWNS  黄总是笨蛋
 				if (row == 1&&col==0) {
 					s.addPiece(new Pawnba(Color.BLACK));
 				}
