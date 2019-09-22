@@ -39,25 +39,25 @@ import pieces.Rookbb;
 public class ChessBoard extends Group {
 
 	public static ArrayList<ArrayList<Square>> all_squares = new ArrayList<ArrayList<Square>>();
-//´´½¨Ò»¸ö¶şÎ¬Êı×é£¬ÀïÃæÔªËØµÄÀàĞÍÊÇsquare
-	public ChessBoard() {//ÎŞ²Î¹¹Ôì·½·¨
+//åˆ›å»ºä¸€ä¸ªäºŒç»´æ•°ç»„ï¼Œé‡Œé¢å…ƒç´ çš„ç±»å‹æ˜¯square
+	public ChessBoard() {//æ— å‚æ„é€ æ–¹æ³•
 
 		for (int row = 0; row < 8; row++) {
-			ArrayList<Square> arrRow = new ArrayList<Square>();//´´½¨·½¿éÊıÁĞ¹²°Ë¸öÊıÁĞ
+			ArrayList<Square> arrRow = new ArrayList<Square>();//åˆ›å»ºæ–¹å—æ•°åˆ—å…±å…«ä¸ªæ•°åˆ—
 			for (int col = 0; col < 8; col++) {
 
-				Color bg = Color.DIMGRAY;//È«Îª°µ»ÒÉ«
+				Color bg = Color.DIMGRAY;//å…¨ä¸ºæš—ç°è‰²
 				if ((row + col) % 2 == 0) {
-					bg = Color.WHITE;//ºá×İÏà¼ÓÎªÅ¼Êı±äÎª°×É«
+					bg = Color.WHITE;//æ¨ªçºµç›¸åŠ ä¸ºå¶æ•°å˜ä¸ºç™½è‰²
 				}
 
 				Square s = new Square(bg);
 				s.setTranslateX(col * Square.SIZE);//
 				s.setTranslateY(row * Square.SIZE);//!!!
-				this.getChildren().add(s);//Ìí¼Ó,square
+				this.getChildren().add(s);//æ·»åŠ ,square
 				arrRow.add(s);//
 
-				// PAWNS
+				// PAWNS  ç½—æ€»æ˜¯ç¬¨è›‹
 				if (row == 1&&col==0) {
 					s.addPiece(new Pawnba(Color.BLACK));
 				}
@@ -203,9 +203,9 @@ public class ChessBoard extends Group {
 					if (col == 4) {
 						s.addPiece(new Kinga(Color.WHITE));
 					}
-				}//ÒÔÉÏ¶¼ÊÇÌí¼ÓÆå×Ó
+				}//ä»¥ä¸Šéƒ½æ˜¯æ·»åŠ æ£‹å­
 			}
-			all_squares.add(arrRow);//ÔÚÀïÃæÌí¼ÓarrRow;
+			all_squares.add(arrRow);//åœ¨é‡Œé¢æ·»åŠ arrRow;
 		}
 	}
 
