@@ -1,215 +1,131 @@
+//
+// Source code recreated from a .class file by IntelliJ IDEA
+// (powered by Fernflower decompiler)
+//
+
 package board;
-import java.util.ArrayList;
-import javafx.scene.Group;
-import javafx.scene.paint.Color;
-import pieces.Bishopaa;
-import pieces.Bishopab;
-import pieces.Bishopba;
-import pieces.Bishopbb;
-import pieces.Kinga;
-import pieces.Kingb;
-import pieces.Knightaa;
-import pieces.Knightab;
-import pieces.Knightba;
-import pieces.Knightbb;
-import pieces.Pawnaa;
-import pieces.Pawnab;
-import pieces.Pawnac;
-import pieces.Pawnad;
-import pieces.Pawnae;
-import pieces.Pawnaf;
-import pieces.Pawnag;
-import pieces.Pawnah;
-import pieces.Pawnba;
-import pieces.Pawnbb;
-import pieces.Pawnbc;
-import pieces.Pawnbd;
-import pieces.Pawnbe;
-import pieces.Pawnbf;
-import pieces.Pawnbg;
-import pieces.Pawnbh;
-import pieces.Queena;
-import pieces.Queenb;
-import pieces.Rookaa;
-import pieces.Rookab;
-import pieces.Rookba;
-import pieces.Rookbb;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.border.Border;
+import pieces.King;
+import pieces.Piece;
 
-public class ChessBoard extends Group {
+public class Cell extends JPanel implements Cloneable {
+    private static final long serialVersionUID = 1L;
+    private boolean ispossibledestination;
+    private JLabel content;
+    private Piece piece;
+    int x;
+    int y;
+    private boolean isSelected = false;
+    private boolean ischeck = false;
 
-	public static ArrayList<ArrayList<Square>> all_squares = new ArrayList<ArrayList<Square>>();
-//创建一个二维数组，里面元素的类型是square
-	public ChessBoard() {//无参构造方法
+    public Cell(int x, int y, Piece p) {
+        this.x = x;
+        this.y = y;
+        this.setLayout(new BorderLayout());
+        if ((x + y) % 2 == 0) {
+            this.setBackground(new Color(113, 198, 113));
+        } else {
+            this.setBackground(Color.white);
+        }
 
-		for (int row = 0; row < 8; row++) {
-			ArrayList<Square> arrRow = new ArrayList<Square>();//创建方块数列共八个数列
-			for (int col = 0; col < 8; col++) {
+        if (p != null) {
+            this.setPiece(p);
+        }
 
-				Color bg = Color.DIMGRAY;//全为暗灰色
-				if ((row + col) % 2 == 0) {
-					bg = Color.WHITE;//横纵相加为偶数变为白色
-				}
+    }
 
-				Square s = new Square(bg);
-				s.setTranslateX(col * Square.SIZE);//
-				s.setTranslateY(row * Square.SIZE);//!!!
-				this.getChildren().add(s);//添加,square
-				arrRow.add(s);//
+    public Cell(Cell cell) throws CloneNotSupportedException {
+        this.x = cell.x;
+        this.y = cell.y;
+        this.setLayout(new BorderLayout());
+        if ((this.x + this.y) % 2 == 0) {
+            this.setBackground(new Color(113, 198, 113));
+        } else {
+            this.setBackground(Color.white);
+        }
 
-				// PAWNS  黄总是笨蛋
-				if (row == 1&&col==0) {
-					s.addPiece(new Pawnba(Color.BLACK));
-				}
-				if (row == 1&&col==1) {
-					s.addPiece(new Pawnbb(Color.BLACK));
-				}
-				if (row == 1&&col==2) {
-					s.addPiece(new Pawnbc(Color.BLACK));
-				}
-				if (row == 1&&col==3) {
-					s.addPiece(new Pawnbd(Color.BLACK));
-				}
-				if (row == 1&&col==4) {
-					s.addPiece(new Pawnbe(Color.BLACK));
-				}
-				if (row == 1&&col==5) {
-					s.addPiece(new Pawnbf(Color.BLACK));
-				}
-				if (row == 1&&col==6) {
-					s.addPiece(new Pawnbg(Color.BLACK));
-				}
-				if (row == 1&&col==7) {
-					s.addPiece(new Pawnbh(Color.BLACK));
-				}
+        if (cell.getpiece() != null) {
+            this.setPiece(cell.getpiece().getcopy());
+        } else {
+            this.piece = null;
+        }
 
-				if (row == 6&&col==0) {
-					s.addPiece(new Queena(Color.WHITE));
-				}
-				if (row == 6&&col==1) {
-					s.addPiece(new Pawnaa(Color.WHITE));
-				}
-				if (row == 6&&col==2) {
-					s.addPiece(new Queena(Color.WHITE));
-				}
-				if (row == 6&&col==3) {
-					s.addPiece(new Queena(Color.WHITE));
-				}
-				if (row == 6&&col==4) {
-					s.addPiece(new Queena(Color.WHITE));
-				}
-				if (row == 6&&col==5) {
-					s.addPiece(new Queena(Color.WHITE));
-				}
-				if (row == 6&&col==6) {
-					s.addPiece(new Queena(Color.WHITE));
-				}
-				if (row == 6&&col==7) {
-					s.addPiece(new Queena(Color.WHITE));
-				}
-				
+    }
 
-				// ROOKS
-				if (row == 0) {
-					if (col == 0 ) {
-						s.addPiece(new Rookba(Color.BLACK));
-					}
-				}
-				if (row == 0) {
-					if (col == 7 ) {
-						s.addPiece(new Rookbb(Color.BLACK));
-					}
-				}
+    public void setPiece(Piece p) {
+        this.piece = p;
+        ImageIcon img = new ImageIcon(this.getClass().getResource(p.getPath()));
+        this.content = new JLabel(img);
+        this.add(this.content);
+    }
 
-				if (row == 7) {
-					if (col == 0 ) {
-						s.addPiece(new Queena(Color.WHITE));
-					}
-				}
-				if (row == 7) {
-					if (col == 7 ) {
-						s.addPiece(new Queena(Color.WHITE));
-					}
-				}
+    public void removePiece() {
+        if (this.piece instanceof King) {
+            this.piece = null;
+            this.remove(this.content);
+        } else {
+            this.piece = null;
+            this.remove(this.content);
+        }
 
-				// KNIGHTS
-				if (row == 0) {
-					if (col == 1 ) {
-						s.addPiece(new Knightba(Color.BLACK));
-					}
-				}
-				if (row == 0) {
-					if (col == 6 ) {
-						s.addPiece(new Knightbb(Color.BLACK));
-					}
-				}
+    }
 
-				if (row == 7) {
-					if (col == 1 ) {
-						s.addPiece(new Queena(Color.WHITE));
-					}
-				}
-				if (row == 7) {
-					if (col == 6 ) {
-						s.addPiece(new Queena(Color.WHITE));
-					}
-				}
+    public Piece getpiece() {
+        return this.piece;
+    }
 
+    public void select() {
+        this.setBorder(BorderFactory.createLineBorder(Color.red, 6));
+        this.isSelected = true;
+    }
 
-				// BISHOPS
-				if (row == 0) {
-					if (col == 2 ) {
-						s.addPiece(new Bishopba(Color.BLACK));
-					}
-				}
-				if (row == 0) {
-					if (col == 5 ) {
-						s.addPiece(new Bishopbb(Color.BLACK));
-					}
-				}
+    public boolean isselected() {
+        return this.isSelected;
+    }
 
-				if (row == 7) {
-					if (col == 2 ) {
-						s.addPiece(new Queena(Color.WHITE));
-					}
-				}
-				if (row == 7) {
-					if (col == 5 ) {
-						s.addPiece(new Queena(Color.WHITE));
-					}
-				}
+    public void deselect() {
+        this.setBorder((Border)null);
+        this.isSelected = false;
+    }
 
-				// QUEENS
-				if (row == 0) {
-					if (col == 3) {
-						s.addPiece(new Queenb(Color.BLACK));
-					}
-				}
+    public void setpossibledestination() {
+        this.setBorder(BorderFactory.createLineBorder(Color.blue, 4));
+        this.ispossibledestination = true;
+    }
 
-				if (row == 7) {
-					if (col == 3) {
-						s.addPiece(new Queena(Color.WHITE));
-					}
-				}
+    public void removepossibledestination() {
+        this.setBorder((Border)null);
+        this.ispossibledestination = false;
+    }
 
-				// KINGS
-				if (row == 0) {
-					if (col == 4 ) {
-						s.addPiece(new Kingb(Color.BLACK));
-					}
-				}
+    public boolean ispossibledestination() {
+        return this.ispossibledestination;
+    }
 
-				if (row == 7) {
-					if (col == 4) {
-						s.addPiece(new Kinga(Color.WHITE));
-					}
-				}//以上都是添加棋子
-			}
-			all_squares.add(arrRow);//在里面添加arrRow;
-		}
-	}
+    public void setcheck() {
+        this.setBackground(Color.RED);
+        this.ischeck = true;
+    }
 
-	public static Square getSquare(int x, int y) {
-		return all_squares.get(y).get(x);
-	}
+    public void removecheck() {
+        this.setBorder((Border)null);
+        if ((this.x + this.y) % 2 == 0) {
+            this.setBackground(new Color(113, 198, 113));
+        } else {
+            this.setBackground(Color.white);
+        }
+
+        this.ischeck = false;
+    }
+
+    public boolean ischeck() {
+        return this.ischeck;
+    }
 }
