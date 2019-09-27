@@ -15,7 +15,7 @@ import javax.swing.border.Border;
 import pieces.King;
 import pieces.Piece;
 
-public class Cell extends JPanel implements Cloneable {
+public class ChessBoard extends JPanel implements Cloneable {
     private static final long serialVersionUID = 1L;
     private boolean ispossibledestination;
     private JLabel content;
@@ -25,7 +25,7 @@ public class Cell extends JPanel implements Cloneable {
     private boolean isSelected = false;
     private boolean ischeck = false;
 
-    public Cell(int x, int y, Piece p) {
+    public ChessBoard(int x, int y, Piece p) {
         this.x = x;
         this.y = y;
         this.setLayout(new BorderLayout());
@@ -41,7 +41,7 @@ public class Cell extends JPanel implements Cloneable {
 
     }
 
-    public Cell(Cell cell) throws CloneNotSupportedException {
+    public ChessBoard(Cell cell) throws CloneNotSupportedException {
         this.x = cell.x;
         this.y = cell.y;
         this.setLayout(new BorderLayout());
