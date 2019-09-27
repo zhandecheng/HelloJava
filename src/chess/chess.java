@@ -31,6 +31,11 @@ import javafx.stage.Stage;
 //import pieces.Pawn;
 //import pieces.Queen;
 //import pieces.Rook;
+import java.applet.Applet;
+import java.applet.AudioClip;
+import java.io.File;
+import java.net.URI;
+import java.net.URL;
 
 public class chess extends Application {
 	//public  static int i=1;
@@ -41,6 +46,24 @@ public class chess extends Application {
 	public static Scene winScreen;//结束界面
 	public Square qs = new Square(Color.WHITE);
 	public static TextArea note= new TextArea();
+	
+	 //背景音乐
+    class Music extends Application {
+        File f;
+        URI uri;
+        URL url;
+        Music(){
+            try{
+                f = new File("");
+                uri = f.toURI();
+                url = uri.toURL(); //解析地址
+                AudioClip aau;
+                aau = Applet.newAudioClip(url);
+                aau.loop(); //循环播放
+            }catch (Exception e ){
+                e.printStackTrace();
+            }
+        }
 	
 	public void start(Stage primaryStage) throws Exception {
 		
@@ -202,6 +225,7 @@ public class chess extends Application {
 	
 
 	public static void main(String[] args) {	 
+		new Music();
 		launch(args);
 	}
 	
