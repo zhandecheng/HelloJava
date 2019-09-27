@@ -35,10 +35,10 @@ import javafx.stage.Stage;
 public class chess extends Application {
 	//public  static int i=1;
 	public static Stage window;
-    public	 Scene menuScene, gameScene;//²Ëµ¥½çÃæÓëÓÎÏ·½çÃæ
+    public	 Scene menuScene, gameScene;//èœå•ç•Œé¢ä¸æ¸¸æˆç•Œé¢
 	public  static Scene pawnUpScreen ;
 	public static Scene gameOverScreen;
-	public static Scene winScreen;//½áÊø½çÃæ
+	public static Scene winScreen;//ç»“æŸç•Œé¢
 	public Square qs = new Square(Color.WHITE);
 	public static TextArea note= new TextArea();
 	
@@ -53,13 +53,13 @@ public class chess extends Application {
  
 		// Menu----------------------------------------------------------
 
-		Label gameName = new Label(" ÏóÆå´òÆ×ÏµÍ³");//ÓÎÏ·Ãû
+		Label gameName = new Label(" å›½é™…è±¡æ£‹");//æ¸¸æˆå
 		pane.getChildren().add(gameName);
-		gameName.setLayoutY(150);//labelÎ»ÖÃ
-		gameName.setFont(new Font("KaiTi",100));//×ÖÌå´óĞ¡
+		gameName.setLayoutY(150);//labelä½ç½®
+		gameName.setFont(new Font("KaiTi",100));//å­—ä½“å¤§å°
 		
-		Button startButton = new Button("Start");//¿ªÊ¼°´Å¥
-		Button exitButton = new Button("Exit");//È¡Ïû°´Å¥
+		Button startButton = new Button("Start");//å¼€å§‹æŒ‰é’®
+		Button exitButton = new Button("Exit");//å–æ¶ˆæŒ‰é’®
 		startButton.setPrefSize(170,70);
 		exitButton.setPrefSize(170,70);
         startButton.setStyle("-fx-background-color:ALICEBLUE");
@@ -72,13 +72,13 @@ public class chess extends Application {
 //						+ "linear-gradient(#dddddd 0%, #f6f6f6 50%); -fx-background-radius: 8,7,6; -fx-background-insets: 0,1,2; -fx-text-fill: black;"
 //						+ "-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 ); -fx-font-size: 1.9em; -fx-padding: 10px;";
 
-		VBox menuVBox = new VBox(40);//²Ëµ¥ºáĞĞ
-		menuVBox.setAlignment(Pos.CENTER);//¾ÓÖĞ
+		VBox menuVBox = new VBox(40);//èœå•æ¨ªè¡Œ
+		menuVBox.setAlignment(Pos.CENTER);//å±…ä¸­
 		
 
 		menuVBox.getChildren().addAll(startButton, exitButton);
 		menuVBox.setSpacing(80);
-		menuVBox.setAlignment(Pos.CENTER);//Ìí¼Ó°´Å¥
+		menuVBox.setAlignment(Pos.CENTER);//æ·»åŠ æŒ‰é’®
 		
 		
 		BorderPane borderPane = new BorderPane();
@@ -90,7 +90,7 @@ public class chess extends Application {
 
 		// Game----------------------------------------------------------
 
-		ChessBoard board = new ChessBoard();//´´½¨ÆåÅÌ¶ÔÏó£¬µ÷³öÆåÅÌ
+		ChessBoard board = new ChessBoard();//åˆ›å»ºæ£‹ç›˜å¯¹è±¡ï¼Œè°ƒå‡ºæ£‹ç›˜
 		//Text steps = new Text("steps");
 		
 		//steps.setX(150.0);
@@ -113,23 +113,23 @@ public class chess extends Application {
 		
 		Scene gameScene = new Scene(root,Square.SIZE * 8+300,Square.SIZE * 8);
 		
-		startButton.setOnAction(e -> primaryStage.setScene(gameScene));//µã»÷¿ªÊ¼°´Å¤£¬ÏÔÊ¾ÓÎÏ·½çÃæ
-		exitButton.setOnAction(e -> System.exit(0));//µã»÷È¡Ïû°´Å¥£¬ÍË³öÓÎÏ·/³ÌĞò
-		//°Ñ½çÃæ´óĞ¡Éè¼ÆµÃ¸Õ¸ÕºÃ¡£¡£¡£
+		startButton.setOnAction(e -> primaryStage.setScene(gameScene));//ç‚¹å‡»å¼€å§‹æŒ‰æ‰­ï¼Œæ˜¾ç¤ºæ¸¸æˆç•Œé¢
+		exitButton.setOnAction(e -> System.exit(0));//ç‚¹å‡»å–æ¶ˆæŒ‰é’®ï¼Œé€€å‡ºæ¸¸æˆ/ç¨‹åº
+		//æŠŠç•Œé¢å¤§å°è®¾è®¡å¾—åˆšåˆšå¥½ã€‚ã€‚ã€‚
 
 		// Win----------------------------------------------------------
 
-		Label win = new Label("¹§Ï²Äã£¬Ó®ÁË£¡");
+		Label win = new Label("æ­å–œä½ ï¼Œèµ¢äº†ï¼");
 
 		win.setStyle(style1);
 
-		VBox winVBox = new VBox(40);//×İÏò
+		VBox winVBox = new VBox(40);//çºµå‘
 		
 		winVBox.setAlignment(Pos.CENTER);
 
 		winVBox.getChildren().add(win);
 
-		winScreen = new Scene(winVBox, Square.SIZE * 8, Square.SIZE * 8, Color.BLACK);//´´½¨Ê¤Àû½çÃæ
+		winScreen = new Scene(winVBox, Square.SIZE * 8, Square.SIZE * 8, Color.BLACK);//åˆ›å»ºèƒœåˆ©ç•Œé¢
 
 		
 
@@ -139,7 +139,7 @@ public class chess extends Application {
 
 		String style3 = "-fx-font-size: 3em;";
 
-		gameOverLabel.setStyle(style3);//£¡£¡£¡
+		gameOverLabel.setStyle(style3);//ï¼ï¼ï¼
 
 		VBox gameOverVBox = new VBox(40);
 		gameOverVBox.setAlignment(Pos.CENTER);
@@ -163,9 +163,9 @@ public class chess extends Application {
 	 
 		window.getIcons().add(new Image("images/WHITE_KING.png"));
 		window.setTitle("Chess scoring system");
-	//	window.setResizable(false);//´°Ìå´óĞ¡²»¿É¸Ä±ä
+	//	window.setResizable(false);//çª—ä½“å¤§å°ä¸å¯æ”¹å˜
 		window.setScene(menuScene);
-		window.show();//ÏÔÊ¾
+		window.show();//æ˜¾ç¤º
 	}
 	public static void pawnUp() {
 		Stage pawnUpStage = new Stage();
@@ -193,11 +193,11 @@ public class chess extends Application {
 
 	public static void gameOver() {
 		window.setScene(gameOverScreen);
-	}//£¡£¡£¡
+	}//ï¼ï¼ï¼
 
 	public static void win() {
 		window.setScene(winScreen);
-	}//£¡£¡£¡
+	}//ï¼ï¼ï¼
 	
 	
 
